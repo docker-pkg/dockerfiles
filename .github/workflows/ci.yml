@@ -85,7 +85,7 @@ jobs:
           jq <<<"$builds" .
       - name: prep docker (tianon-moby)
         uses: tianon/debian-moby-action@HEAD
-        if: runner.os == 'linux' # https://github.com/tianon/dockerfiles/pull/523#issuecomment-1738223851
+        if: runner.os == 'linux' # https://github.com/docker-pkg/dockerfiles/pull/523#issuecomment-1738223851
       - name: prep buildx
         run: |
           docker buildx create --name tianon --driver-opt image=tianon/buildkit --driver-opt network=host --bootstrap # network=host for access to "localhost:5000" (registry below)
