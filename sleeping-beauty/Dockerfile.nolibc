@@ -1,4 +1,4 @@
-FROM ghcr.io/docker-pkg/nolibc:linux-6.10.7 AS build
+FROM tianon/nolibc AS build
 
 WORKDIR /tmp
 COPY sleeping-beauty.c ./

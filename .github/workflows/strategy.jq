@@ -21,7 +21,7 @@ map(
 						"2019"
 					else "unknown" end
 				)
-			else "ubuntu-22.04" end # TODO add support for ubuntu-24.04 to docker-pkg/debian-moby-action
+			else "ubuntu-22.04" end # TODO add support for ubuntu-24.04 to tianon/debian-moby-action
 		),
 		commands: (
 			map(

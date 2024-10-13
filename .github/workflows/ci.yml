@@ -22,11 +22,11 @@ jobs:
     outputs:
       strategy: ${{ steps.strategy.outputs.strategy }}
     env:
-      BASHBREW_NAMESPACE: docker-pkg
+      BASHBREW_NAMESPACE: tianon
     steps:
       # TODO if it's a pull_request, we want to build only the changed things (generate sources.json before, generate after, only build the RHS/"comm -13" delta)
       - uses: actions/checkout@v4
-      - uses: docker-pkg/bashbrew@docker-pkg
+      - uses: tianon/bashbrew@tianon
       - name: generate library
         run: |
           mkdir .library
@@ -37,7 +37,7 @@ jobs:
       - name: checkout meta-scripts
         uses: actions/checkout@v4
         with:
-          repository: docker-pkg/doi-meta-scripts
+          repository: tianon/doi-meta-scripts
           path: .meta-scripts
       # TODO handle external-pins better (in meta-scripts itself) -- perhaps an environment variable to explicitly opt-out of external-pins?
       - name: fake .external-pins (to satisfy sources.sh)
@@ -83,15 +83,15 @@ jobs:
           jq <<<"$builds" 'map(first(.source.arches[].tags[]) + " " + .build.arch)'
           cat <<<"$commands"
           jq <<<"$builds" .
-      - name: prep docker (docker-pkg-moby)
-        uses: docker-pkg/debian-moby-action@HEAD
-        if: runner.os == 'linux' # https://github.com/docker-pkg/dockerfiles/pull/523#issuecomment-1738223851
+      - name: prep docker (tianon-moby)
+        uses: tianon/debian-moby-action@HEAD
+        if: runner.os == 'linux' # https://github.com/tianon/dockerfiles/pull/523#issuecomment-1738223851
       - name: prep buildx
         run: |
-          docker buildx create --name docker-pkg --driver-opt image=docker-pkg/buildkit --driver-opt network=host --bootstrap # network=host for access to "localhost:5000" (registry below)
-          docker buildx inspect docker-pkg
-          echo 'BUILDX_BUILDER=docker-pkg' >> "$GITHUB_ENV"
-          echo 'BASHBREW_BUILDKIT_SYNTAX=docker-pkg/buildkit' >> "$GITHUB_ENV"
+          docker buildx create --name tianon --driver-opt image=tianon/buildkit --driver-opt network=host --bootstrap # network=host for access to "localhost:5000" (registry below)
+          docker buildx inspect tianon
+          echo 'BUILDX_BUILDER=tianon' >> "$GITHUB_ENV"
+          echo 'BASHBREW_BUILDKIT_SYNTAX=tianon/buildkit' >> "$GITHUB_ENV"
         if: contains(matrix.commands, ' buildx ')
       - name: prep crane
         env:

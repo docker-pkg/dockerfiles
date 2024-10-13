@@ -1,8 +1,8 @@
 # usage:
-#   $ docker build --tag docker-pkg/docker-master:build --target build - < Dockerfile
-#   $ docker run --rm docker-pkg/docker-master:build tar -cC /artifacts . | tar -xvC target-directory
+#   $ docker build --tag tianon/docker-master:build --target build - < Dockerfile
+#   $ docker run --rm tianon/docker-master:build tar -cC /artifacts . | tar -xvC target-directory
 #
-#   $ docker run -d --name dind --privileged --volume dind:/var/lib/docker docker-pkg/docker-master
+#   $ docker run -d --name dind --privileged --volume dind:/var/lib/docker tianon/docker-master
 
 FROM golang:{{ .go.version }}-bullseye AS build
 

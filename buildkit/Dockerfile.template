@@ -1,5 +1,5 @@
 {{ if env.variant != "" then .[env.variant] else . end | ( -}}
-{{ # https://github.com/docker-pkg/bashbrew/commit/823f2c4716e0c697a10a772e46a5d51c386a5dcc (bashbrew ~support for "--platform=$BUILDPLATFORM" specifically for this use case -- applied to Docker-pkg's own local builds) -}}
+{{ # https://github.com/tianon/bashbrew/commit/823f2c4716e0c697a10a772e46a5d51c386a5dcc (bashbrew ~support for "--platform=$BUILDPLATFORM" specifically for this use case -- applied to Tianon's own local builds) -}}
 FROM --platform=$BUILDPLATFORM golang:{{ .go.version }} AS build
 
 {{ if env.variant == "dev" then ( -}}
@@ -64,11 +64,11 @@ RUN set -eux; \
 	ldflags=" \
 		-d -w \
 {{ if env.variant == "dev" then ( -}}
-		-X '$pkg/version.Version={{ env.variant }}-docker-pkg' \
-		-X '$pkg/version.Revision=$BUILDKIT_COMMIT+docker-pkg-patches' \
+		-X '$pkg/version.Version={{ env.variant }}-tianon' \
+		-X '$pkg/version.Revision=$BUILDKIT_COMMIT+tianon-patches' \
 {{ ) else ( -}}
-		-X '$pkg/version.Version=$BUILDKIT_VERSION-docker-pkg' \
-		-X '$pkg/version.Revision=v$BUILDKIT_VERSION+docker-pkg-patches' \
+		-X '$pkg/version.Version=$BUILDKIT_VERSION-tianon' \
+		-X '$pkg/version.Revision=v$BUILDKIT_VERSION+tianon-patches' \
 {{ ) end -}}
 		-X '$pkg/version.Package=$pkg' \
 	"; \
@@ -80,11 +80,11 @@ RUN set -eux; \
 	ldflags=" \
 		-d -w \
 {{ if env.variant == "dev" then ( -}}
-		-X '$pkg/version.Version={{ env.variant }}-docker-pkg' \
-		-X '$pkg/version.Revision=$BUILDKIT_COMMIT+docker-pkg-patches' \
+		-X '$pkg/version.Version={{ env.variant }}-tianon' \
+		-X '$pkg/version.Revision=$BUILDKIT_COMMIT+tianon-patches' \
 {{ ) else ( -}}
-		-X '$pkg/version.Version=buildkit-$BUILDKIT_VERSION-docker-pkg' \
-		-X '$pkg/version.Revision=v$BUILDKIT_VERSION+docker-pkg-patches' \
+		-X '$pkg/version.Version=buildkit-$BUILDKIT_VERSION-tianon' \
+		-X '$pkg/version.Revision=v$BUILDKIT_VERSION+tianon-patches' \
 {{ ) end -}}
 		-X '$pkg/version.Package=$pkg' \
 	"; \
