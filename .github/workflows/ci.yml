@@ -22,7 +22,7 @@ jobs:
     outputs:
       strategy: ${{ steps.strategy.outputs.strategy }}
     env:
-      BASHBREW_NAMESPACE: tianon
+      BASHBREW_NAMESPACE: docker-pkg
     steps:
       # TODO if it's a pull_request, we want to build only the changed things (generate sources.json before, generate after, only build the RHS/"comm -13" delta)
       - uses: actions/checkout@v4
