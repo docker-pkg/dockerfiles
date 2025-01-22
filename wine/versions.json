@@ -1,7 +1,7 @@
 {
-  "version": "9.0.0.0",
+  "version": "10.0.0.0",
   "debian": {
-    "sha256": "eafd27469751c2b6713c2385d1e6dfd616359e89a552510ed9ca305eca50232d",
-    "version": "9.0.0.0~bookworm-1"
+    "sha256": "8afd962bee42616224c835b2af53b7beb618f92c7fbfe699da3f1976a0601731",
+    "version": "10.0.0.0~bookworm-1"
   }
 }
